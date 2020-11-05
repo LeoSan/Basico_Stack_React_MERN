@@ -1,0 +1,29 @@
+{
+  "name": "serv",
+  "version": "1.0.0",
+  "description": "Proyecto de  Prueba para crear un distema funcional comercial ",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon ./index.js",
+    "start": "node ./index.js"
+  },
+  "keywords": [
+    "Leonard",
+    "Jose",
+    "Cuenca",
+    "Roa"
+  ],
+  "author": "Leonard Jose Cuenca Roa",
+  "license": "ISC",
+  "dependencies": {
+    "bcrypt": "^5.0.0",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "express-validator": "^6.6.1",
+    "jsonwebtoken": "^8.5.1"
+  },
+  "devDependencies": {
+    "mongoose": "^5.10.11",
+    "nodemon": "^2.0.6"
+  }
+}
