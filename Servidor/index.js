@@ -1,10 +1,17 @@
 const express = require('express');
- const connectarDB = require('./config/db'); // Importamos nuestro conector de BD // Debes crear la conexion antes
+const connectarDB = require('./config/db'); // Importamos nuestro conector de BD // Debes crear la conexion antes
+
+
+
 
 //Crear el servidor 
 const app = express();
 
 console.log(`Iniciando nuestro servidor en node.js - express`);
+
+
+
+
 
 // ejecutamos la función para conectar a la base de datos
  connectarDB(); // Debes crear la conexion antes 
@@ -21,6 +28,10 @@ app.use('/api/usuarios', require('./routes/usuarios'));  // esta  sentencia aun 
 
 //Autenticar usuario 
 app.use('/api/auth', require('./routes/auth'));  // esta  sentencia aun no se crear hasta que puedas generar los controladores 
+
+//Creamos nuestro  end-point para  subir  arhivos. 
+app.use('/api/enlaces', require('./routes/enlaces'));  
+
 
 //Iniciamos nuestro  servidor 
 app.listen(port, '0.0.0.0', () => {

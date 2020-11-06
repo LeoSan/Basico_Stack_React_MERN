@@ -1,6 +1,5 @@
 const Usuario = require('../models/Usuario');
 const bcrypt = require('bcrypt');
-
 const jwt = require('jsonwebtoken');
 require('dotenv').config({path:'variables.env'}); 
 
@@ -44,7 +43,8 @@ exports.autenticarUsuario = async (req, res, next) =>{
 
 }
 
-exports.usuarioAutenticado = async (req, res ) =>{
+exports.usuarioAutenticado = async (req, res, next ) =>{
 
+    res.json({usuario: req.usuario });
 
 }

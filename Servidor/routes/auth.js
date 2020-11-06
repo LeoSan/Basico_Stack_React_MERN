@@ -1,6 +1,9 @@
 //Importamos la librerias de express
 const express = require('express');
 
+//Importamos midle 
+const auth = require('../middleware/auth');
+
 const {check} = require('express-validator');
 
 //llamamos al controlador 
@@ -18,8 +21,9 @@ authController.autenticarUsuario
 );
 
 
-router.get('/', 
-authController.usuarioAutenticado 
+router.get('/',
+    auth,//Pieza de código   
+    authController.usuarioAutenticado 
 );
 
 module.exports = router;
