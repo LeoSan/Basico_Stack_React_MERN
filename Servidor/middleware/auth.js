@@ -2,7 +2,7 @@ const jwt = require('jsonwebtoken');
 require('dotenv').config({path:'variables.env'}); 
 
 module.exports = (req, res, next) =>{
-    console.log("Yo soy tu puto midle"); 
+    console.log("Yo soy tu puto middle"); 
 
     const authHeader = req.get('Authorization'); 
     try {

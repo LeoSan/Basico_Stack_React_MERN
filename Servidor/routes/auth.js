@@ -1,16 +1,14 @@
-//Importamos la librerias de express
+//Importamos la librerias de express {Tres paquetes fundamentales para los router }
 const express = require('express');
-
-//Importamos midle 
-const auth = require('../middleware/auth');
-
+const router  = express.Router();
 const {check} = require('express-validator');
 
 //llamamos al controlador 
 const authController = require('../controller/authController');  // Nueva Parte
 
-//Importamos la Librerias  de Router 
-const router  = express.Router();
+//Importamos midle 
+const auth = require('../middleware/auth');
+
 
 //Comunicación Para el controlador 
 router.post('/',[

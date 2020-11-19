@@ -29,8 +29,12 @@ app.use('/api/usuarios', require('./routes/usuarios'));  // esta  sentencia aun 
 //Autenticar usuario 
 app.use('/api/auth', require('./routes/auth'));  // esta  sentencia aun no se crear hasta que puedas generar los controladores 
 
-//Creamos nuestro  end-point para  subir  arhivos. 
+//Creamos nuestro  end-point para  crear  urls  
 app.use('/api/enlaces', require('./routes/enlaces'));  
+
+
+//Creamos nuestro  end-point para  subir  arhivos. 
+app.use('/api/archivos', require('./routes/archivos'));  
 
 
 //Iniciamos nuestro  servidor 
