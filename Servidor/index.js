@@ -1,7 +1,7 @@
 const express = require('express');
 const connectarDB = require('./config/db'); // Importamos nuestro conector de BD // Debes crear la conexion antes
 
-
+const cors = require('cors');//Esto es para solucionar el error de comunicación entre servidores. 
 
 
 //Crear el servidor 
@@ -10,17 +10,23 @@ const app = express();
 console.log(`Iniciando nuestro servidor en node.js - express`);
 
 
-
-
-
 // ejecutamos la función para conectar a la base de datos
  connectarDB(); // Debes crear la conexion antes 
+
+ //Habilitar Cors -> Linea Nueva 
+ console.log(`Habilitamos CORS`);
+ app.use(  cors() ); 
+
 
 //Creamos el puesrto para la app
  const port = process.env.PORT || 4000;  // Debes instalar  y crear el env que son las variables de entorno
 
 //Habilitar leer los valores de un body 
 app.use(express.json());
+
+
+
+
 
 //Rutas de Accesos 
 //Crear usuario 

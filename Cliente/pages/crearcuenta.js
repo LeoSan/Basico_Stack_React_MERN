@@ -1,12 +1,18 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import Layout from '../components/Layout'; 
 import {useFormik, yupToFormErrors} from 'formik'; 
 import * as Yup from 'yup';
 
-
+//Importamos nuestros  useContext (Hooks)
+import authContext from '../context/auth/authContext'
 
 
 const CrearCuenta = () => {
+
+    //Acceder el state 
+    const AuthContext = useContext(authContext);
+    const {registrarUsuario} =  AuthContext;
+
 
     //Formulario  y Validación con formik  
     const formik = useFormik({
@@ -21,7 +27,7 @@ const CrearCuenta = () => {
               password  : Yup.string().required('El campo Nombre es obligatorio. ').min(6, 'La  comtraseña debe contener al menos 6 caracteres.'),   
         }),
         onSubmit: (valores)=>{
-            console.log("Enviando formulario", valores);
+            registrarUsuario(valores);//Aqui pasamos los valores  del formulario al state por medio de la funcion registrar usuario 
         }
     });
 
