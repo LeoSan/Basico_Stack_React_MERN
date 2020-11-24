@@ -7,7 +7,7 @@ import authReducer  from './authReducer';
 
 
 //Importamos el tipo de accion 
-import {USUARIO_AUTENTICADO, REGISTRAR_USUARIO} from '../../types';
+import {USUARIO_AUTENTICADO, REGISTRO_EXITOSO, REGISTRO_ERROR, LIMPIAR_REGISTRO} from '../../types';
 
 //Comunicación servidor Back-End
 import clienteAxios from '../../config/axios';
@@ -20,7 +20,11 @@ const AuthState = ( {children} )=>{
         token:'', 
         autenticado:null, 
         usuario:null, 
-        mensaje:null
+        mensaje:null, 
+        classMensaje:{
+            mensajeAlerta:null, 
+            estiloAlerta:null
+        }
     }
 
 
@@ -33,17 +37,55 @@ const AuthState = ( {children} )=>{
 
     const registrarUsuario = async (datos)=>{
         console.log("Desde Registrar Usuario ");
+        let objetoAlerta = {
+            mensajeAlerta:null, 
+            estiloAlerta:null
+        }
 
         try {
             
             //console.log(clienteAxios);
             const respuesta = await clienteAxios.post('/api/usuarios', datos); 
-            console.log(respuesta);
+            
+            //console.log(respuesta.data.msj);
+            objetoAlerta.mensajeAlerta = respuesta.data.msj; 
+            objetoAlerta.estiloAlerta  = 'bg-green-500'; 
+
+            dispatch({
+                type: REGISTRO_EXITOSO, //Es la accion a ejecutar
+                payload: objetoAlerta  //Son los datos que modifica el state 
+    
+            }); 
             
         } catch (error) {
-            console.log(`error->${error}`);
+            let msjError = error.response.data.msg;
+            
+            console.log(`error->${msjError}`);
+
+            objetoAlerta.mensajeAlerta = msjError; 
+            objetoAlerta.estiloAlerta  = 'bg-red-700'; 
+
+
+            dispatch({
+                type: REGISTRO_ERROR, //Es la accion a ejecutar
+                payload: objetoAlerta  //Son los datos que modifica el state 
+    
+            }); 
             
         }
+
+        setTimeout(() => {
+
+            objetoAlerta.mensajeAlerta = null; 
+            objetoAlerta.estiloAlerta  = null; 
+
+            dispatch({
+                type: LIMPIAR_REGISTRO, //Es la accion a ejecutar
+                payload: objetoAlerta  //Son los datos que modifica el state 
+    
+            }); 
+            
+        }, 5000);
 
     }
 
@@ -67,6 +109,7 @@ const AuthState = ( {children} )=>{
                 autenticado:state.autenticado,
                 usuario:state.usuario, 
                 mensaje:state.mensaje, 
+                classMensaje:state.classMensaje, 
                 registrarUsuario,
                 usuarioAutenticado,
 

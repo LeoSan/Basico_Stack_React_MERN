@@ -6,12 +6,14 @@ import * as Yup from 'yup';
 //Importamos nuestros  useContext (Hooks)
 import authContext from '../context/auth/authContext'
 
+//Importar Alerta 
+import Alerta from '../components/Alerta'; 
 
 const CrearCuenta = () => {
 
     //Acceder el state 
     const AuthContext = useContext(authContext);
-    const {registrarUsuario} =  AuthContext;
+    const {registrarUsuario,  classMensaje} =  AuthContext;
 
 
     //Formulario  y Validación con formik  
@@ -110,6 +112,9 @@ const CrearCuenta = () => {
                             </div>
 
                                 <input type="submit" value="Generar" className="bg-indigo-500 hover:bg-blue-500 w-full p-2 text-white font-bold uppercase" />
+
+                                { classMensaje.mensajeAlerta && <Alerta/> }
+
                         </form>
                     </div>
                 </div>
