@@ -1,9 +1,31 @@
-import React from 'react';
+import React, {useContext, useEffect} from 'react';
 import Layout from '../components/Layout';
 import {useFormik, yupToFormErrors} from 'formik'; 
 import * as Yup from 'yup';
+import { useRouter } from 'next/router'
+
+//Importamos nuestros  useContext (Hooks)
+import authContext from '../context/auth/authContext'
+
+//Importar Alerta 
+import Alerta from '../components/Alerta'; 
 
 const Login = () => {
+
+        //Acceder el state 
+        const AuthContext = useContext(authContext);
+        const { iniciarSesion,  classMensaje, autenticado } =  AuthContext;
+
+        //Next Router 
+
+        const router = useRouter();
+    
+    //Validr autenticado 
+    useEffect(() => {
+        if(autenticado){
+            router.push('/'); 
+        }
+    }, [autenticado])
 
 
     //Formulario  y Validación con formik  
@@ -17,7 +39,7 @@ const Login = () => {
               password  : Yup.string().required('El campo Nombre es obligatorio. ').min(6, 'La  contraseña debe contener al menos 6 caracteres.'),   
         }),
         onSubmit: (valores)=>{
-            console.log("Enviando formulario", valores);
+            iniciarSesion(valores);
         }
     });    
   return ( 
@@ -77,7 +99,9 @@ const Login = () => {
                                 ) : null } 
                             </div>
 
-                                <input type="submit" value="Crear" className="bg-indigo-500 hover:bg-blue-500 w-full p-2 text-white font-bold uppercase" />
+                                <input type="submit" value="Login" className="bg-indigo-500 hover:bg-blue-500 w-full p-2 text-white font-bold uppercase" />
+
+                                { classMensaje.mensajeAlerta && <Alerta/> }
                         </form>
                     </div>
                 </div>

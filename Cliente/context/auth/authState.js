@@ -3,21 +3,30 @@ import React,  {useReducer} from 'react';
 import authContext from './authContext';
 import authReducer  from './authReducer'; 
 
+//Comunicación servidor Back-End
+import clienteAxios from '../../config/axios';
+import tokenAuth from '../../config/tokenAuth';
 
 
 
 //Importamos el tipo de accion 
-import {USUARIO_AUTENTICADO, REGISTRO_EXITOSO, REGISTRO_ERROR, LIMPIAR_REGISTRO} from '../../types';
+import { 
+    USUARIO_AUTENTICADO, 
+    REGISTRO_EXITOSO, 
+    REGISTRO_ERROR,
+    LIMPIAR_REGISTRO, 
+    LOGIN_ERROR, 
+    LOGIN_EXITOSO,
+    CERRAR_SESION 
+} from '../../types';
 
-//Comunicación servidor Back-End
-import clienteAxios from '../../config/axios';
 
 
 const AuthState = ( {children} )=>{
 
     //Definir un state  inicial 
     const inicialState = {
-        token:'', 
+        token: typeof window !== 'undefined' ? localStorage.getItem('token') : null, 
         autenticado:null, 
         usuario:null, 
         mensaje:null, 
@@ -89,12 +98,115 @@ const AuthState = ( {children} )=>{
 
     }
 
+
+    //Funciones para autenticar 
+    const iniciarSesion = async (datos)=>{
+        
+        let objetoAlerta = {
+            mensajeAlerta:null, 
+            estiloAlerta:null
+        }
+        
+        //console.log(datos);
+
+        try {
+            const respuesta = await clienteAxios.post('/api/auth', datos); 
+            console.log(respuesta.data.token); 
+
+            dispatch({
+                type: LOGIN_EXITOSO, //Es la accion a ejecutar
+                payload: respuesta.data.token  //Son los datos que modifica el state 
+    
+            }); 
+
+            
+        } catch (error) {
+
+            let msjError = error.response.data.msg;
+            
+            console.log(`error->${msjError}`);
+
+            objetoAlerta.mensajeAlerta = msjError; 
+            objetoAlerta.estiloAlerta  = 'bg-red-700'; 
+
+            dispatch({
+                type: LOGIN_ERROR, //Es la accion a ejecutar
+                payload: objetoAlerta  //Son los datos que modifica el state 
+    
+            }); 
+            
+        }
+
+        setTimeout(() => {
+
+            objetoAlerta.mensajeAlerta = null; 
+            objetoAlerta.estiloAlerta  = null; 
+
+            dispatch({
+                type: LIMPIAR_REGISTRO, //Es la accion a ejecutar
+                payload: objetoAlerta  //Son los datos que modifica el state 
+    
+            }); 
+            
+        }, 5000);        
+
+    }
+
+
+    //Función Retorne los valores del token 
+
+    
+
     //Usuario Autenticado 
-    const usuarioAutenticado =(nombre)=>{
+    const usuarioAutenticado = async () =>{
+        console.log("Revisando");
+        try {
+
+            const token = localStorage.getItem('token'); 
+            if (token){
+                tokenAuth(token);
+            }else{
+
+            }
+
+            const respuesta = await clienteAxios.get('/api/auth'); 
+            console.log(respuesta.data.usuario); 
+
+            dispatch({
+                type: USUARIO_AUTENTICADO, //Es la accion a ejecutar
+                payload: respuesta.data.usuario  //Son los datos que modifica el state 
+    
+            }); 
+
+
+            
+        } catch (error) {
+
+            let msjError = error.response.data.msg;
+            
+            console.log(`error->${msjError}`);
+
+            objetoAlerta.mensajeAlerta = msjError; 
+            objetoAlerta.estiloAlerta  = 'bg-red-700'; 
+
+            dispatch({
+                type: LOGIN_ERROR, //Es la accion a ejecutar
+                payload: objetoAlerta  //Son los datos que modifica el state 
+    
+            });             
+            
+        }
+
+    
+    }
+
+    //Función para cerrar session 
+
+    const cerrarSesion = ()=>{
 
         dispatch({
-            type: USUARIO_AUTENTICADO, //Es la accion a ejecutar
-            payload: nombre  //Son los datos que modifica el state 
+            type: CERRAR_SESION, //Es la accion a ejecutar
+            
 
         }); 
 
@@ -112,6 +224,8 @@ const AuthState = ( {children} )=>{
                 classMensaje:state.classMensaje, 
                 registrarUsuario,
                 usuarioAutenticado,
+                iniciarSesion,
+                cerrarSesion
 
             }}
         >
