@@ -13,22 +13,28 @@ console.log(`Iniciando nuestro servidor en node.js - express`);
 // ejecutamos la función para conectar a la base de datos
  connectarDB(); // Debes crear la conexion antes 
 
- //Habilitar Cors -> Linea Nueva 
+ //Habilitar Cors -> Linea Nueva se debe instalar cors 
  console.log(`Habilitamos CORS`);
- app.use(  cors() ); 
+
+ const opcionesCors = {
+     origin:process.env.FRONTEND_URL
+ }
+ app.use(  cors( opcionesCors ) ); 
 
 
 //Creamos el puesrto para la app
  const port = process.env.PORT || 4000;  // Debes instalar  y crear el env que son las variables de entorno
 
 //Habilitar leer los valores de un body 
-app.use(express.json());
+app.use( express.json() );
 
-
-
+// Habilitar carpeta publica 
+ console.log(`Habilitar carpeta publica `);
+ app.use(express.static('uploads'));
 
 
 //Rutas de Accesos 
+
 //Crear usuario 
 app.use('/api/usuarios', require('./routes/usuarios'));  // esta  sentencia aun no se crear hasta que puedas generar los controladores 
 

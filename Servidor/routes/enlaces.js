@@ -22,10 +22,16 @@ router.post('/'
     , enlaController.nuevoEnlace
 );
 
-//Creaos  nuestro  end-point y nuestra comunicaciòn con el controlador 
+//Creamos un Router para listar todos los  enlaces guardados en la tabla enlace
+router.get('/'
+    , enlaController.todosEnlaces
+);
+
+
+//Creamos  nuestro  end-point y nuestra comunicaciòn con el controlador 
 router.get('/:url'
     , enlaController.obtenerEnlace
-    , archivoController.eliminarArchivo
+    
 );
 
 

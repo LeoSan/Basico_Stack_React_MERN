@@ -165,20 +165,18 @@ const AuthState = ( {children} )=>{
             const token = localStorage.getItem('token'); 
             if (token){
                 tokenAuth(token);
-            }else{
+           
+
+                const respuesta = await clienteAxios.get('/api/auth'); 
+                console.log(respuesta.data.usuario); 
+
+                dispatch({
+                    type: USUARIO_AUTENTICADO, //Es la accion a ejecutar
+                    payload: respuesta.data.usuario  //Son los datos que modifica el state 
+        
+                }); 
 
             }
-
-            const respuesta = await clienteAxios.get('/api/auth'); 
-            console.log(respuesta.data.usuario); 
-
-            dispatch({
-                type: USUARIO_AUTENTICADO, //Es la accion a ejecutar
-                payload: respuesta.data.usuario  //Son los datos que modifica el state 
-    
-            }); 
-
-
             
         } catch (error) {
 
@@ -206,8 +204,6 @@ const AuthState = ( {children} )=>{
 
         dispatch({
             type: CERRAR_SESION, //Es la accion a ejecutar
-            
-
         }); 
 
     }

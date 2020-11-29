@@ -12,4 +12,12 @@ router.post('/'
     , archivosController.subirArchivo
 );
 
+
+//Creaos  nuestro  end-point y nuestra comunicaciòn con el controlador para decargar archivo 
+router.get('/:archivo'
+    , archivosController.descargarArchivo
+    , archivosController.eliminarArchivo
+);
+
+
 module.exports = router;

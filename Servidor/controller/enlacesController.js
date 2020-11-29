@@ -27,7 +27,7 @@ exports.nuevoEnlace = async (req, res, next ) =>{
         
     
     //Variables 
-    const {nombre_original, password} = req.body; 
+    const {nombre_original, password, nombre} = req.body; 
    //console.log(req.body); //->Metodo que ayuda debugear
 
     //Instancioamos el modelo 
@@ -35,7 +35,7 @@ exports.nuevoEnlace = async (req, res, next ) =>{
 
     //Transformamos 
     enlace.url = shortid.generate();
-    enlace.nombre = shortid.generate();
+    enlace.nombre = nombre;
     enlace.nombre_original = nombre_original; 
     enlace.password = password;
     
@@ -86,32 +86,25 @@ exports.obtenerEnlace = async (req, res, next ) =>{
         return next();
     }
     
-    //Si encontro enlace 
     
-
-    // Si las decargas son iguales a 1 
-
-    if (enlace.numDescarga === 1 ){
-
-        //Eliminar el archivo 
-        req.archivo = enlace.nombre; 
-
-        //Eliminar entrada de la base de datos 
-        await Enlaces.findByIdAndRemove(enlace._id); // Solo  acepta la  id 
-        next();// esto  permite desplazarte al  otro middleware es decir otro fragmento de código.  
-    }else{
-
-        // Si las descargas son mayores a 1 
-        enlace.numDescarga--;
-        await enlace.save();
-        console.log( enlace.numDescarga );
-
-
-    }
-
-
+    //Si encontro enlace 
     res.json({archivo:enlace.nombre});
 
-    
+    next();
+   
 
+}
+
+//Obtiene un listado de todos los enlaces 
+exports.todosEnlaces = async (req, res, next ) =>{
+    try {
+
+        const enlaces = await Enlaces.find({}).select('url -_id');
+        res.json({enlaces});
+        console.log(enlaces);
+        
+    } catch (error) {
+
+        res.json({msj: `Hubo un  error  en  la comunicación !! -> ${error} `});
+    }
 }
