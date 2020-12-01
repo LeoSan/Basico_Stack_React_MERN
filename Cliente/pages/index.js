@@ -23,10 +23,11 @@ const Index = () => {
     
     //Verificar si hay token
     useEffect(() => {
-        
-        usuarioAutenticado();
-        
-    }, [])
+        const token = localStorage.getItem('token');
+        if ( token ){
+            usuarioAutenticado();
+        }
+    }, []); // Asi solo hace que el useEffect  se ejecute una sola vez. 
      
 
 

@@ -15,6 +15,8 @@ import {
     CREAR_ENLACE_EXITO, 
     CREAR_ENLACE_ERROR, 
     LIMPIAR_STATE,
+    AGREGAR_PASSWORD,
+    AGREGAR_DESCARGAS,  
 
 } from '../../types';
 
@@ -32,7 +34,7 @@ const AppState = ( {children} ) => {
             nombre:'', 
             nombre_original:'', 
             cargando:null, 
-            descargas:1, 
+            numDescarga:1, 
             password:'', 
             autor:null, 
             url:'', 
@@ -134,7 +136,7 @@ const AppState = ( {children} ) => {
         const data = { 
             nombre:state.nombre, 
             nombre_original:state.nombre_original, 
-            descargas:state.descargas, 
+            numDescarga:state.numDescarga, 
             password:state.password,
             autor:state.autor,
         }
@@ -180,13 +182,35 @@ const AppState = ( {children} ) => {
 
         dispatch({
             type: LIMPIAR_STATE, //Es la accion a ejecutar
-            
-
         }); 
 
     }
         
+    // Agreagar contraseña al archivo 
 
+    const agregarPass = async(password)=>{
+
+            dispatch({
+                type: AGREGAR_PASSWORD, //Es la accion a ejecutar
+                payload: password  //Son los datos que modifica el state 
+    
+            }); 
+        
+    }
+
+    // Agreagar el total  de descargas 
+
+    const agregarNumeroDescargas = async(numeroDecargas)=>{
+
+        dispatch({
+            type: AGREGAR_DESCARGAS, //Es la accion a ejecutar
+            payload: numeroDecargas  //Son los datos que modifica el state 
+
+        }); 
+    
+    }    
+
+    //Verificar Password 
     
     return(
         <appContext.Provider
@@ -195,14 +219,16 @@ const AppState = ( {children} ) => {
                 nombre:state.nombre,
                 nombre_original:state.nombre_original,
                 cargando:state.cargando,
-                descargaas:state.descargas,
+                numDescarga:state.numDescarga,
                 password:state.password,
                 autor:state.autor,
                 url:state.url,
                 mostrarAlerta , 
                 subirArchivo, 
                 crearEnlace, 
-                limpiarState
+                limpiarState,
+                agregarPass, 
+                agregarNumeroDescargas
             }}
         >
 

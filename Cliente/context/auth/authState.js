@@ -17,7 +17,8 @@ import {
     LIMPIAR_REGISTRO, 
     LOGIN_ERROR, 
     LOGIN_EXITOSO,
-    CERRAR_SESION 
+    CERRAR_SESION,
+    VERIFICAR_PASSWORD 
 } from '../../types';
 
 
@@ -160,21 +161,28 @@ const AuthState = ( {children} )=>{
     //Usuario Autenticado 
     const usuarioAutenticado = async () =>{
         console.log("Revisando");
+        let objetoAlerta = {
+            mensajeAlerta:null, 
+            estiloAlerta:null
+        }
+
+
         try {
 
             const token = localStorage.getItem('token'); 
             if (token){
+                
                 tokenAuth(token);
-           
 
                 const respuesta = await clienteAxios.get('/api/auth'); 
                 console.log(respuesta.data.usuario); 
-
-                dispatch({
-                    type: USUARIO_AUTENTICADO, //Es la accion a ejecutar
-                    payload: respuesta.data.usuario  //Son los datos que modifica el state 
-        
-                }); 
+                if ( respuesta.data.usuario ){
+                    dispatch({
+                        type: USUARIO_AUTENTICADO, //Es la accion a ejecutar
+                        payload: respuesta.data.usuario  //Son los datos que modifica el state 
+            
+                    }); 
+                }
 
             }
             
@@ -208,6 +216,35 @@ const AuthState = ( {children} )=>{
 
     }
 
+
+    //Función para cerrar session 
+
+    const verificarPassAlerta = (datos)=>{
+
+
+
+        dispatch({
+            type: VERIFICAR_PASSWORD, //Es la accion a ejecutar
+            payload:datos
+        }); 
+
+
+
+        setTimeout(() => {
+
+            datos.mensajeAlerta = null; 
+            datos.estiloAlerta  = null; 
+
+            dispatch({
+                type: LIMPIAR_REGISTRO, //Es la accion a ejecutar
+                payload: datos  //Son los datos que modifica el state 
+    
+            }); 
+            
+        }, 5000);         
+
+    }
+
     //Nota:  React  avanzado no es type sript es usar hooks para mantener tus state centralizados hooks (useContext, useReducer) 
 
     return(
@@ -221,7 +258,8 @@ const AuthState = ( {children} )=>{
                 registrarUsuario,
                 usuarioAutenticado,
                 iniciarSesion,
-                cerrarSesion
+                cerrarSesion,
+                verificarPassAlerta
 
             }}
         >

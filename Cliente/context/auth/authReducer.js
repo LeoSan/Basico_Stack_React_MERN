@@ -8,7 +8,9 @@ import {
     LIMPIAR_REGISTRO, 
     LOGIN_ERROR, 
     LOGIN_EXITOSO, 
-    CERRAR_SESION
+    CERRAR_SESION,
+    VERIFICAR_PASSWORD,
+    
 
 } from '../../types';
 
@@ -67,7 +69,16 @@ export default (state, action) =>{
             return{
                 ...state, 
                 usuario:action.payload, 
+                autenticado:true,
             }
+
+        case VERIFICAR_PASSWORD: 
+
+        return{
+            ...state, 
+            classMensaje:action.payload
+        }
+
 
         default:
             return state;

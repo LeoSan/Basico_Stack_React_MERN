@@ -73,7 +73,7 @@ exports.descargarArchivo = async (req, res, next )=>{
     const enlace = await Enlaces.findOne({ nombre: archivo }); 
 
     if (!enlace){
-        res.status(400).json({msg: `Se elimino ya el archivo, ya  no puedes decargarlo,  buuuuuuuuuuuuuuu no te quieren, el nene  quiere llorar, sorry son las  3 am ya  no doy para mas.   `});
+        res.status(400).json({msg: `Se elimino ya el archivo, ya  no puedes descargarlo,  buuuuuuuuuuuuuuu no te quieren, el nene  quiere llorar, sorry son las  3 am ya  no doy para mas.   `});
         next();
     }
     

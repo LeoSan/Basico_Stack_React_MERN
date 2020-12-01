@@ -30,9 +30,18 @@ router.get('/'
 
 //Creamos  nuestro  end-point y nuestra comunicaciòn con el controlador 
 router.get('/:url'
+    , enlaController.tienePassword
     , enlaController.obtenerEnlace
     
 );
+
+//Creamos  nuestro  end-point y nuestra comunicaciòn con el controlador 
+router.post('/:url'
+    , enlaController.verificarPass
+    , enlaController.obtenerEnlace
+    
+);
+
 
 
 
