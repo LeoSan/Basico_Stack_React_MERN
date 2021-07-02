@@ -1,7 +1,6 @@
 # Método Stack [ MERN ]  Proyecto  NodeSend
 
-
-<p align="center"><img src="https://cdn2.codingdojo.com/new_design_image/individual_curriculum/mern/common_uses_of_mean_stack_development.png" width="400"> </p>
+<p align="center"><img src="https://cdn2.codingdojo.com/new_design_image/individual_curriculum/mern/common_uses_of_mean_stack_development.png" width="600"> </p>
 
 ## 🧠 ¿QUÉ ES EL STACK MERN de JavaScript? 🧠
 >MERN es un framework de JavaScript fullstack, amigable para el usuario e ideal para crear sitios web y aplicaciones dinámicas. Es un stack gratuito y de código abierto diseñado para proporcionar a los desarrolladores un método rápido y organizado de crear prototipos rápidos de aplicaciones web basadas en MERN. 
@@ -48,29 +47,10 @@
 ## 🧠 Tips y Reflexiones para mejorar 🧠
 
 
+## Link de Apoyos  
+https://pandao.github.io/editor.md/en.html
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+## Link de Guias 
+- [Guia Personal](https://docs.google.com/document/d/13hobBUXYAvhkBLOEi-NTjA7G0qoGE0C6ArrQSlF9bLU/)
+- [Estudios - Platzi](https://platzi.com/p/LEONARDCUENCA/)
+- [Estudios - Udemy](https://www.udemy.com/user/leonard-cuenca-roa/)
