@@ -29,10 +29,20 @@
 
 ## ✏️ Comandos Front ✏️ -> 📰
 
-`` -> 
+- `npx create-next-app my-project`->Esto ya te genera toda la configuración del framework Next 
+- `npm i formik` -> Para instalar un validador de formularios
+- `npm i yup` -> Para manejar esquemas de validaciones 
+- `npm i react-router-dom` -> Para los redireccionamientos a paginas usando -> useNavigate
+- `npm list --depth=0`
+- `npm run dev` -> inicamos el front!!  
 
 ## ✏️ Comandos Back ✏️ -> 🔨
-
+- `npm init`
+- `npm i express`
+- `npm i --save-dev nodemon`
+- `npm install mongoose --save`
+- `npm install dotenv`
+- `npm run dev` -> Iniciamos el back!!
 `` -> 
 
 ## 🧠 Tips y Reflexiones para mejorar 🧠
